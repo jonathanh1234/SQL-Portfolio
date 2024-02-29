@@ -1,0 +1,25 @@
+--Dataset: Twitter US Airline Sentiment
+--Source: https://www.kaggle.com/datasets/crowdflower/twitter-airline-sentiment
+--Queried using: SQLiteStudio
+
+### Determine the customer's sentiment towards the Airline (Positive, Neutral, Negative)
+
+  SELECT airline AS Airline,
+       airline_sentiment AS Sentiment,
+       CASE WHEN airline_sentiment = "positive" THEN COUNT(airline_sentiment) WHEN airline_sentiment = "neutral" THEN COUNT(airline_sentiment) ELSE COUNT(airline_sentiment) END AS Total
+  FROM Tweets
+ GROUP BY airline,
+          airline_sentiment
+ ORDER BY airline ASC;
+  
+  SAMPLE RESULTS
+        Airline | Sentiment | Total
+        American| Negative  | 1843
+        American| Neutral   | 443
+        American| Positive  | 307
+        Delta   | Negative  | 955
+        Delta   | Neutral   | 723
+        Delta   | Positive  | 544
+
+
+### 
