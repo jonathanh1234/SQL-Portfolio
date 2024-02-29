@@ -1,0 +1,36 @@
+--Dataset: SF Salaries
+--Source: https://www.kaggle.com/datasets/kaggle/sf-salaries
+--Queried using: SQLiteStudio
+
+
+  ### Get the average salary for each job
+
+      SELECT JobTitle AS Job,
+       ROUND(AVG(BasePay), 2) AS Average
+        FROM Salaries
+       GROUP BY JobTitle
+       ORDER BY JobTitle ASC;
+
+    SAMPLE DATA
+    JOB                 | Average
+    ACCOUNT CLERK       | 43300.81
+    ACCOUNTANT          | 46641.17
+    ACCOUNTANT INTERN   | 28742.66
+    ...
+
+### Gather the 10 employees witht the 10 highest salaries
+
+      SELECT EmployeeName AS Name,
+       JobTitle AS Job,
+       TotalPay AS Total
+        FROM Salaries
+       ORDER BY TotalPay DESC
+       LIMIT 10;
+
+    SAMPLE DATA
+    Name            | Job                                               | Total
+    Nathaniel Ford  | General Manager - Metropolitan Transit Authority  | 567595.43
+    Gary Jimenez    | Captain III (Police Department)                   | 538909.28
+    David Shinn     | Deputy Chief 3                                    | 471952.19
+    Amy P Hart      | Asst Med Excaminder                               | 390111.98
+    ...
