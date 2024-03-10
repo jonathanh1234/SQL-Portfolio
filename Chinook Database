@@ -3,7 +3,8 @@
 --Queried using: SQLiteStudio
 
 
-    ##Gather the total each customer has spent
+    ## Gather the total each customer has spent
+
         SELECT (Customer.FirstName || ' ' || Customer.LastName) AS Name,
         Sum(Invoice.Total) AS Total
         FROM Customer
@@ -12,4 +13,34 @@
        GROUP BY Invoice.CustomerId
        ORDER BY Total DESC;
 
-          ##EX Results
+          ## Sample Data
+                Name                 | Total
+                Helena Holy          | 49.62
+                Richard Cunningham   | 47.62
+                Luis Rojas           | 46.62
+                ....
+
+        ## Get detailed information of what Tracks each customer buys
+
+            SELECT Customer.CustomerId AS ID,
+           (Customer.FirstName || ' ' || Customer.LastName) AS Name,
+           Track.Name AS Track,
+           Album.Title AS Album
+           FROM Customer
+               INNER JOIN
+               Invoice ON Invoice.CustomerId = Customer.CustomerId
+               INNER JOIN
+               InvoiceLine ON InvoiceLine.InvoiceId = Invoice.InvoiceId
+               INNER JOIN
+               Track ON Track.TrackId = InvoiceLine.TrackId
+               INNER JOIN
+               Album ON Album.AlbumID = Track.AlbumId
+           GROUP BY Customer.CustomerId,
+           Invoice.InvoiceId;
+
+            ## SAMPLE DATA
+            ID    | Name                | Track                | Album
+            1     | Luis Goncalves      | Experiment In Terra  | Battlestar Galactica (classic), Season 1
+            1     | Luis Goncalves      | Shout It Out Loud    | Greatest Kiss
+            1     | Luis Goncalves      | Think About You      | Appetite Fro Destruction
+            ....
