@@ -1,3 +1,15 @@
 --Dataset: Chinook Database
 --Source: https://www.kaggle.com/datasets/ranasabrii/chinook
 --Queried using: SQLiteStudio
+
+
+    ##Gather the total each customer has spent
+        SELECT (Customer.FirstName || ' ' || Customer.LastName) AS Name,
+        Sum(Invoice.Total) AS Total
+        FROM Customer
+             INNER JOIN
+             Invoice ON Invoice.CustomerId = Customer.CustomerId
+       GROUP BY Invoice.CustomerId
+       ORDER BY Total DESC;
+
+          ##EX Results
